@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>J stes</title>
+	<script src="angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="app1">
+	<div ng-controller="testController">
+		<input type="text" ng-model="name">
+		{{name}}
+
+		<h1 x-ng-bind="name1"></h1>
+		<!-- <h1 ng:bind="name"></h1>
+		<h1 ng-bind="name"></h1> -->
+		<div ng-controller="testController1">
+			<h1 x-ng-bind="name1"></h1>
+		</div>
+		{{email}}
+	</div>
+
+</div>
+
+<script>
+	var appName = angular.module("app1",[]);
+	appName.controller("testController",function($scope){
+		$scope.name = "Hellow"
+		$scope.email = "Hellow@ahsjd.com"
+	})
+
+	appName.controller("testController1",function($scope){
+		$scope.name1 = "testController1"
+		$scope.email1 = "testController1@ahsjd.com"
+	})
+
+	/*function Team(){
+		this.name = "CSk";
+		this.getTeamName = function(){
+			return this.name;
+		}
+	}
+
+	Team.prototype.setTeamName = function(){
+		return "Hellow";
+	}
+
+	var teamObejct =  new Team();
+	teamObejct.name = "Hekki";
+	console.log(teamObejct.getTeamName());*/
+/*
+	class Team {
+		constructor (){
+			this.name = "Hello";
+		}
+
+		getTeamName () {
+			return this.name+"Helo";
+		}
+
+		set name(x) {
+			this.name = x;
+		}
+
+		get name() {
+			return this.name+"this is from getter";
+		}
+	}
+
+	class Team1 extends Team{
+		constructor (){
+			super()
+			this.name1 = "Hello11";
+		}
+
+		getTeamName () {
+			return super.getTeamName();
+			return this.name;
+		}
+	}
+ 
+	var teamObejct = new Team();
+	teamObejct.name = "changed";
+	console.log(teamObejct.name);*/
+
+
+
+
+</script>
+</body>
+</html>
