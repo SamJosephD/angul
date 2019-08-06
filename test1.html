@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>J stes</title>
+	<script src="angular.min.js"></script>
+	<style>
+		.red { 
+			color : red;
+		}
+
+		.green { 
+			color : green;
+		}
+
+		.none {
+			display: none;
+		}
+
+		.display{
+			display: block;
+		}
+	</style>
+</head>
+<body ng-app="app">
+{{name + "dsad"}}
+<div ng-controller="Mycontroller">
+	<h5 ng-repeat="x in MyArray">{{x.name + x.email}}</h5>
+	{{name}}
+	<h2 ng-class="{red : true,none:true}">Hello World</h2>
+	<h2 ng-style="Mystyle">Hello World</h2>
+	<button ng-click="showMyValueFunction()">Show / Hide</button>
+
+	<select ng-model="color">
+		<option>Yellow</option>
+		<option>green</option>
+	</select>
+
+	<div ng-switch on="color">
+		<p ng-switch-when="Yellow">My Yello Page</p>
+		<p ng-switch-when="green">My green Page</p>
+		<p ng-switch-default>My Default Page</p>
+	</div>
+</div>
+
+<div ng-controller="Mycontroller1">
+	{{name}}
+</div>
+<script>
+
+var app = angular.module("app",[]);
+
+app.controller("Mycontroller1",function($scope){
+	$scope.name1 = "ahdkahd";
+});
+
+app.controller("Mycontroller",function($scope,$rootScope){
+	$scope.color = "Yellow";
+	$rootScope.name= "Balakudmarna";
+
+	$scope.showMyValue = false;
+	$scope.Myclass = "red";
+	$scope.Mystyle = {
+		"color" : "blue"
+	}
+	$scope.showMyValueFunction = function(){
+		$scope.Myclass = $scope.showMyValue ? "none" : "display	"
+		$scope.showMyValue = !$scope.showMyValue;
+	}
+
+	$scope.MyArray = [
+		{
+			"name" : "MyName1",
+			"email" : "eam@ad.com"
+		},
+		{
+			"name" : "MyName2",
+			"email" : "eam@ad.com"
+		},
+		{
+			"name" : "MyNam3",
+			"email" : "eam@ad.com"
+		}
+	]
+});
+
+app.controller("Mycontroller",function($scope){
+	$scope.name = "Value";
+});
+
+var app1 = angular.module("app1",["app"]);
+
+app1.controller("Mycontroller",function($scope){
+	$scope.name = "Value asdsh";
+});
+
+app1.controller("Mycontroller1",function($scope){
+	$scope.name = "Value asdsh";
+
+	$scope.myArray = [
+		{
+			"name" : "balaji",
+			"email" : [
+				{
+					"my" : "name"
+				}
+			]
+		},
+		{
+			"name" : "balaji S",
+			"email" : [
+				{
+					"my" : "name11"
+				}
+			]
+		}
+	];
+
+	angular.forEach($scope.myArray,function(value,key){
+		console.log(value.name,key);
+		angular.forEach(value.email,function(value1,key1){
+			console.log(value1.my,key1);
+		})
+	})
+});
+
+class Team {
+
+	constructor() {
+		this.name = "My value"
+	}
+
+	get name(){
+		return this.name;
+	}
+
+	set name(x){
+		this.name = x;
+	}
+}
+
+var teamObejct = new Team();
+console.log(teamObejct.name);
+</script>
+</body>
+</html>

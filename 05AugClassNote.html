@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>J stes</title>
+	<script src="angular.min.js"></script>
+</head>
+<body ng-app="app">
+<div ng-controller="testController" >
+	{{ providerValue | number:2 }}
+	<ul>
+		<li ng-repeat="z in myArray | orderBy:z:false">
+			{{z | myFilter}}
+		</li>
+	</ul>
+	<input type="text" ng-model="search"/>
+	<ul>
+		<li ng-repeat="z in myArray | filter : search | orderBy:z:true">
+			{{z | uppercase	}}
+		</li>
+	</ul>
+	{{strign}}
+	<button ng-click="myDateClick()">angular click</button>
+	<button id="click">js click</button>
+</div>
+<div ng-controller="testController1">
+	{{name}}
+	{{name1}}
+	{{value}}
+	{{constant}}
+</div>
+<script>
+var app = angular.module("app",[]);
+app.value("myValue","strig")
+app.value("myValue1","myValue1")
+app.filter("myFilter",function(){
+	return function(value) {
+		// console.log(value);
+		return value+" my value";
+	}
+})
+app.service("testService",function(myValue,myValue1){
+	this.myFunction = function(){
+		return myValue+myValue1;
+	}
+	this.myFunction1 = function(){
+		return "Hello World1"
+	}
+});
+app.factory("testFactory",function(){
+	return {
+		myFunction : function(){
+			return "myFunction factory"
+		}
+	}
+});
+app.constant("myConstant","myConstant");
+app.provider("hello",function(){
+	this.name = "default";
+	this.$get = function(){
+		var name = this.name;
+		return {
+			getValue : function(){
+				return name;
+			}
+		}
+	}
+	this.setName= function(x){
+		this.name = x;
+	}
+});
+app.config(function(helloProvider,$interpolateProvider){
+	helloProvider.setName(1.6555544);
+	// $interpolateProvider.startSymbol("&&&&");
+	// $interpolateProvider.endSymbol("&&&&");
+});
+app.run(function(){
+})
+app.controller("testController",function($scope,testService,hello){
+	$scope.name = testService.myFunction();
+	$scope.myArray = ["Apple","pen","tool","service"];
+	$scope.providerValue = hello.getValue();
+	$scope.search = "";
+	$scope.strign = "My strig";
+	$scope.myDateClick = function(){
+	$scope.strign = "angukar function";
+	}
+	document.getElementById("click").addEventListener("click",function(){
+		$scope.$apply(function(){
+			$scope.strign = "js function";
+		})
+	})
+	$scope.$watchGroup(["search","strign"],function(adasjd,asjd){
+		console.log(adasjd,asjd);
+	});
+});
+app.controller("testController1",function($scope,testFactory,testService,myValue,myConstant){
+	$scope.name = testFactory.myFunction();
+	$scope.name1 = testService.myFunction();
+	$scope.value = myValue;
+	$scope.constant = myConstant;
+});
+</script>
+</body>
+</html>
